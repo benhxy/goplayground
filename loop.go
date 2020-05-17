@@ -2,36 +2,65 @@ package main
 
 import "fmt"
 
+// This is to demonstrate the behavior of i,e := range []element when element's type is struct.
+// Execute: go run main.go loop.go
+
 type testStruct struct {
 	ID int
 }
 
 func printId(t *testStruct) {
-	fmt.Println(t.ID)
+	fmt.Printf("Address=%p, Value=%v", &t, t.ID)
+	fmt.Println()
 }
 
-func loopWithStruct() {
+func loopStructElementsByRange() {
 	ts := []testStruct{{1}, {2}, {3}}
+
+	// When element is assigned from a range, if the element is a struct,
+	// it will be assigned to the same variable (memory address),
+	// causing a de facto closure into printId().
 	for _, t := range ts {
-		fmt.Printf("%p", &t)
-		fmt.Println("")
+		fmt.Printf("ParamAddress=%p, ParamValue=&v", &t, t.ID)
+		fmt.Println()
 		defer printId(&t)
 	}
 }
 
-func loopWithPointer() {
+func loopStructElementsByIndex() {
+	ts := []testStruct{{1}, {2}, {3}}
+
+	// One solution is to assign a local variable inside the loop.
+	// This forces a new memory assignment.
+	for i := range ts {
+		t := ts[i]
+		fmt.Printf("ParamAddress=%p, ParamValue=&v", &t, t.ID)
+		fmt.Println()
+		defer printId(&t)
+	}
+}
+
+func loopPointerElementsByRange() {
 	ts := []*testStruct{&testStruct{1}, &testStruct{2}, &testStruct{3}}
+
+	// Passing the pointer does not have this issue,
+	// as the pointer value is copied into the function by parameter.
 	for _, t := range ts {
-		fmt.Printf("%p", &t)
-		fmt.Println("")
+		fmt.Printf("ParamAddress=%p, ParamValue=&v", t, t.ID)
+		fmt.Println()
 		defer printId(t)
 	}
 }
 
 func loopTest() {
-	fmt.Println("loopWithStruct()")
-	loopWithStruct()
+	fmt.Println("loopStructElementsByRange()")
+	loopStructElementsByRange()
 	fmt.Println()
-	fmt.Println("loopWithPointer()")
-	loopWithPointer()
+
+	fmt.Println("loopStructElementsByIndex()")
+	loopStructElementsByIndex()
+	fmt.Println()
+
+	fmt.Println("loopPointerElementsByRange()")
+	loopPointerElementsByRange()
 }
