@@ -2,9 +2,10 @@ package landmine
 
 import (
 	"fmt"
+	"testing"
 )
 
-func underlyingArray() {
+func TestUnderlyingArray(t *testing.T) {
 	// When a slice is given capacity, an array with length = capacity is created.
 	// When append an element to the slice, as long as the size is within the
 	// underlying array's length, the returned slice will keep referencing to the same array.
@@ -29,4 +30,14 @@ func underlyingArray() {
 	fmt.Printf("d's address=%p\n", d)
 
 	fmt.Printf("c = %v, d = %v\n", c, d)
+
+	/*
+		a's address=0xc0000142f8
+		b's address=0xc0000142f8
+		a = [200], b = [200]
+
+		c's address=0xc000014330
+		d's address=0xc000014338
+		c = [100], d = [200]
+	*/
 }
