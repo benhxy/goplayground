@@ -1,9 +1,8 @@
-package main
+package landmine
 
 import "fmt"
 
 // This is to demonstrate the behavior of i,e := range []element when element's type is struct.
-// Execute: go run main.go loop.go
 
 type testStruct struct {
 	ID int
@@ -17,8 +16,8 @@ func printId(t *testStruct) {
 func loopStructElementsByRange() {
 	ts := []testStruct{{1}, {2}, {3}}
 
-	// When element is assigned from a range, if the element is a struct,
-	// it will be assigned to the same variable (memory address),
+	// When elements are assigned from a range,
+	// they are assigned to the same variable (memory address),
 	// causing a de facto closure into printId().
 	for _, t := range ts {
 		fmt.Printf("ParamAddress=%p, ParamValue=&v", &t, t.ID)
