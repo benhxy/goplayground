@@ -19,3 +19,6 @@
 * Named return values in a function are initialized with default value
 * To return a struct, return type is the pointer of the struct
 * To cast an element to a struct, do element.(*Struct)
+* When assining a nil struct to an interface, because interface is a wrapper of {type, value}, the interface will not be nil.
+* Nil slice (var s []int) is a slice with nil backing array. Empty slice (make([]int, 0)) is a slice pointing to an array with zero length. They are different.
+* Nil map, channel, function are just a nil pointer.
