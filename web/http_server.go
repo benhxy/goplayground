@@ -1,4 +1,4 @@
-package main
+package web
 
 import (
 	"fmt"
@@ -16,13 +16,13 @@ func main() {
 }
 
 func helloHandler(w http.ResponseWriter, r *http.Request) {
-	regex := regexp.MustCompile("^(.+)@golang.org$")
-
+	regex := regexp.MustCompile("^(.+)@benhu.dev$")
 	path := r.URL.Path
-	match := regex.Find([]byte(path))
-	if match != nil {
-		fmt.Fprintf(w, "Hello gopher %v \n", string(match[1:]))
+	match := regex.FindStringSubmatch(path)
+
+	if match != nil && len(match) > 1 {
+		fmt.Fprintf(w, "Hello Ben's friend %v \n", match[1][1:])
 	} else {
-		fmt.Fprintf(w, "Hello user %v \n", path)
+		fmt.Fprintf(w, "Hello user %v \n", path[1:])
 	}
 }
