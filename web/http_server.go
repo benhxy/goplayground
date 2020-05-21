@@ -1,15 +1,28 @@
 package main
 
 import (
+	"fmt"
+	"log"
 	"net/http"
+	"regexp"
 )
 
 func main() {
-	http.HandleFunc("/", hello)
-	http.ListenAndServe(":8080", nil)
+	http.HandleFunc("/", helloHandler)
+	err := http.ListenAndServe(":8080", nil)
+	if err != nil {
+		log.Fatal(err)
+	}
 }
 
-func hello(rw http.ResponseWriter, r *http.Request) {
-	response := []byte("hello world!")
-	rw.Write(response)
+func helloHandler(w http.ResponseWriter, r *http.Request) {
+	regex := regexp.MustCompile("^(.+)@golang.org$")
+
+	path := r.URL.Path
+	match := regex.Find([]byte(path))
+	if match != nil {
+		fmt.Fprintf(w, "Hello gopher %v \n", string(match[1:]))
+	} else {
+		fmt.Fprintf(w, "Hello user %v \n", path)
+	}
 }
