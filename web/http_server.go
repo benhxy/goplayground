@@ -1,10 +1,11 @@
-package web
+package main
 
 import (
 	"fmt"
 	"log"
 	"net/http"
-	"regexp"
+	_ "net/http/pprof"
+	"strings"
 )
 
 func main() {
@@ -16,12 +17,10 @@ func main() {
 }
 
 func helloHandler(w http.ResponseWriter, r *http.Request) {
-	regex := regexp.MustCompile("^(.+)@benhu.dev$")
 	path := r.URL.Path
-	match := regex.FindStringSubmatch(path)
 
-	if match != nil && len(match) > 1 {
-		fmt.Fprintf(w, "Hello Ben's friend %v \n", match[1][1:])
+	if strings.HasSuffix(path, "@benhu.dev") {
+		fmt.Fprintf(w, "Hello Ben's friend %s \n", strings.TrimSuffix(path, "@benhu.dev")[1:])
 	} else {
 		fmt.Fprintf(w, "Hello user %v \n", path[1:])
 	}
