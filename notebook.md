@@ -22,3 +22,4 @@
 * When assining a nil struct to an interface, because interface is a wrapper of {type, value}, the interface will not be nil.
 * Nil slice (var s []int) is a slice with nil backing array. Empty slice (make([]int, 0)) is a slice pointing to an array with zero length. They are different.
 * Nil map, channel, function are just a nil pointer.
+* The rule about pointers vs. values for receivers is that value methods can be invoked on pointers and values, but pointer methods can only be invoked on pointers.
