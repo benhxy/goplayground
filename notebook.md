@@ -1,3 +1,5 @@
+## Notes on Go
+
 * for _, t := range ts reuses the same address for t. So goroutine or defer statement might behave unexpected.
 * Channel can be used as queue!
 * We need a way to tell an unknown and unbounded number of goroutines to stop sending their values downstream. In Go, we can do this by closing a channel, because a receive operation on a closed channel can always proceed immediately, yielding the element type's zero value.
@@ -23,3 +25,14 @@
 * Nil slice (var s []int) is a slice with nil backing array. Empty slice (make([]int, 0)) is a slice pointing to an array with zero length. They are different.
 * Nil map, channel, function are just a nil pointer.
 * The rule about pointers vs. values for receivers is that value methods can be invoked on pointers and values, but pointer methods can only be invoked on pointers.
+
+## Tooling
+* Go Module and package/dependency management
+* pprof
+
+## Resources
+* [Effective Go](https://golang.org/doc/effective_go.html): The official and most detailed walkthrough of language features and behaviors. It explains a lot of "why"s. Also goo reference for writing _idiomatic_ Go code.
+* [Go by Example](https://gobyexample.com/): Similar to Effective Go. But shorter and more readable as code comments.
+* [Go go-to guid](https://yourbasic.org/golang/): Each article explains a concept or behavior. Clear and concise writing.
+* [Go standard library source code](https://github.com/golang/go): Go source code is very short and clean. It's very useful to read through some important packages (fmt, errors, context, strconv) and see the definitions and coding styles.
+* [justforfunc](https://www.youtube.com/channel/UC_BzFbxG2za3bp5NRRRXJSw): Ex-Googler explaining Go ecosystem (language + tooling). Always a pleasure to watch smart and hot bear coding ;)
