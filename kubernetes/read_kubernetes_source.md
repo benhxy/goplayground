@@ -5,14 +5,20 @@
 * To better view Kubernetes source code, clone the code to local directory, and use VS Code + Go extension + Go Outliner extension. Go Outliner extension shows all types, functions, variables and constants in a package. This is especially useful because Go code in a packaged can be scattered in many files and are not ordered by types.
 * Another way to view source code is on go.dev. For example, [this view](https://pkg.go.dev/k8s.io/kubernetes/pkg?tab=subdirectories) is useful to see all package descriptions, if any.
 * The best way to understand what a package does is to read the unit test files. This is also Go's idiomatic way of documentation and showing samples.
+* Kubernetes source code also follows the [common project layout](https://github.com/golang-standards/project-layout). Read it to help you understand the directories.
+
+## /cmd
+* This is where all the component binaries are eventually built from. Each child directory contains a main package, which is the starting point of that binary.
+* This is a good starting point if you want to dig into a specific component (e.g. kubelet).
 
 ## /api/openapi-spec
 * This directory contains /swagger.json, which is the spec of all Kubernetes API.
 * This spec is used to generate or define the most fundamental data structures (struct) in Go language source code.
 
 ## /staging/src/k8s.io
-* This is where the source codes are located.
-* Children directories are synced to other Git repos labeled with "k8s-staging" (e.g. https://github.com/kubernetes/kubelet). Those repos are then built and imported back as dependent packages (located under /pkg). This seems to be necessary to better manage the dependency tree, and make vendoring easier.
+* This is where most source codes are located.
+* Children directories are synced to other Git repos labeled with "k8s-staging" (e.g. https://github.com/kubernetes/kubelet). Those repos are then built and published as dependent packages.
+* Inside the repo, these codes are resolved and imported from /vendor/k8s.io by symlinks.
 * The content in each directory is described in README.md files.
 
 ### ./apimachinery
