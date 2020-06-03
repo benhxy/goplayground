@@ -1,0 +1,1 @@
+Some samples on how Go might behave unexpectedly.
