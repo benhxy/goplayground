@@ -25,6 +25,7 @@
 * [Go go-to guid](https://yourbasic.org/golang/): Each article explains a concept or behavior. Clear and concise writing.
 * [Go standard library source code](https://github.com/golang/go): Go source code is very short and clean. It's very useful to read through some important packages (fmt, errors, context, strconv) and see the definitions and coding styles.
 * [justforfunc](https://www.youtube.com/channel/UC_BzFbxG2za3bp5NRRRXJSw): Ex-Googler explaining Go ecosystem (language + tooling). Always a pleasure to watch smart and hot bear coding ;)
+* [Go 101 hacks](https://nanxiao.gitbooks.io/golang-101-hacks/content/)
 
 ## Notes on Go
 * for _, t := range ts reuses the same address for t. So goroutine or defer statement might behave unexpected due to closure.
