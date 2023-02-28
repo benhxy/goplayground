@@ -1,6 +1,6 @@
 module learn-ginkgo
 
-go 1.14
+go 1.18
 
 require (
 	github.com/onsi/ginkgo v1.14.0
